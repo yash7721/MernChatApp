@@ -49,7 +49,7 @@ const server = app.listen(
   PORT,
   console.log(`Server running on PORT ${PORT}...`.yellow.bold)
 );
-const BASE_URL = process.env.VITE_BASE_URL;
+const BASE_URL = "https://chatapp1-27d0.onrender.com";
 console.log(BASE_URL);
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
