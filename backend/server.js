@@ -43,20 +43,19 @@ if ('production' === "production") {
 app.use(notFound);
 app.use(errorHandler);
 
-const PORT = process.env.PORT||5000;
+const PORT = process.env.PORT || 5000;//5000
 // console.log(process.env.VITE_BASE_URL);
 const server = app.listen(
   PORT,
   console.log(`Server running on PORT ${PORT}...`.yellow.bold)
 );
-const BASE_URL = "https://chatapp1-27d0.onrender.com";
-console.log(BASE_URL);
+// const BASE_URL = "https://chatapp1-27d0.onrender.com";
+// console.log(BASE_URL);
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
-    origin: `${BASE_URL}`,
-    // credentials: true,
-  },
+    origin: '*',
+  }
 });
 
 io.on("connection", (socket) => {
