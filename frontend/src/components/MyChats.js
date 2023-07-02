@@ -4,7 +4,7 @@ import { useToast } from "@chakra-ui/toast";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { getSender } from "../config/ChatLogics";
-import ChatLoading from "./ChatLoading";
+import ChatLoading from "./ChatLoading"; 
 import GroupChatModal from "./miscellaneous/GroupChatModal";
 import { Button } from "@chakra-ui/react";
 import { ChatState } from "../Context/ChatProvider";
@@ -24,7 +24,6 @@ const MyChats = ({ fetchAgain }) => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-
       const { data } = await axios.get("/api/chat", config);
       setChats(data);
     } catch (error) {

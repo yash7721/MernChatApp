@@ -15,7 +15,7 @@ import animationData from "../animations/typing.json";
 import io from "socket.io-client";
 import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal";
 import { ChatState } from "../Context/ChatProvider";
-const ENDPOINT = "https://talktime-dkxt.onrender.com/";//"http://localhost:5000"; //"https://talk-a-tive.herokuapp.com"; -> After deployment
+const ENDPOINT = "http://localhost:5000";//"""https://talktime-dkxt.onrender.com/"; //"https://talk-a-tive.herokuapp.com"; -> After deployment
 var socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
@@ -89,6 +89,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           },
           config
         );
+        console.log(data);
         socket.emit("new message", data);
         setMessages([...messages, data]);
       } catch (error) {
@@ -106,7 +107,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
   useEffect(() => {
     socket = io(ENDPOINT);
-    socket.emit("setup", user);
+    socket.emit("setup", user);   
     socket.on("connected", () => setSocketConnected(true));
     socket.on("typing", () => setIsTyping(true));
     socket.on("stop typing", () => setIsTyping(false));
@@ -146,18 +147,18 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       setTyping(true);
       socket.emit("typing", selectedChat._id);
     }
-    let lastTypingTime = new Date().getTime();
+    // let lastTypingTime = new Date().getTime(); 
     var timerLength = 3000;
     setTimeout(() => {
-      var timeNow = new Date().getTime();
-      var timeDiff = timeNow - lastTypingTime;
-      if (timeDiff >= timerLength && typing) {
-        socket.emit("stop typing", selectedChat._id);
-        setTyping(false);
-      }
+      // var timeNow = new Date().getTime();
+      // var timeDiff = timeNow - lastTypingTime;
+      // if (timeDiff >= timerLength && typing) {
+      // }
+      socket.emit("stop typing", selectedChat._id);
+      setTyping(false);
     }, timerLength);
   };
-
+  
   return (
     <>
       {selectedChat ? (
@@ -168,7 +169,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             px={2}
             w="100%"
             fontFamily="Work sans"
-          display="flex"
+            display="flex"
             justifyContent={{ base: "space-between" }}
             alignItems="center"
           >
@@ -177,7 +178,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               icon={<ArrowBackIcon />}
               onClick={() => setSelectedChat("")}
             />
-            {messages &&
+            {messages&&
               (!selectedChat.isGroupChat ? (
                 <>
                   {getSender(user, selectedChat.users)}

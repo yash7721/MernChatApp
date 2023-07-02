@@ -35,7 +35,11 @@ const GroupChatModal = ({ children }) => {
     }
   }, [search]);
   const handleGroup = (userToAdd) => {
-    if (selectedUsers.includes(userToAdd)) {
+    let  flag=0;
+    for (let i = 0; i < selectedUsers.length; i++) {
+        if(userToAdd._id===selectedUsers[i]._id)flag=1;
+    }
+    if (flag===1) {
       toast({
         title: "User already added",
         status: "warning",
@@ -45,7 +49,6 @@ const GroupChatModal = ({ children }) => {
       });
       return;
     }
-
     setSelectedUsers([...selectedUsers, userToAdd]);
   };
 
@@ -130,12 +133,16 @@ const GroupChatModal = ({ children }) => {
       });
     }
   };
-
+  const handleClose=()=>{
+    onClose();
+    setSelectedUsers([]);
+    setSearchResult([]);
+  }
   return (
     <>
       <span onClick={onOpen}>{children}</span>
 
-      <Modal onClose={onClose} isOpen={isOpen} isCentered>
+      <Modal onClose={handleClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader
@@ -161,7 +168,7 @@ const GroupChatModal = ({ children }) => {
                 mb={1}
                 onChange={(e) => {
                   setSearch(e.target.value);
-                
+
                 }}
               />
             </FormControl>
@@ -179,7 +186,7 @@ const GroupChatModal = ({ children }) => {
               <div>Loading...</div>
             ) : (
               searchResult
-.map((user) => (
+                .map((user) => (
                   <UserListItem
                     key={user._id}
                     user={user}
