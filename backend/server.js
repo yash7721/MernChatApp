@@ -17,9 +17,9 @@ app.use(express.json()); // to accept json data
 //   res.send("API Running!");
 // });
 
-app.use("/api/user", userRoutes);
-app.use("/api/chat", chatRoutes);
-app.use("/api/message", messageRoutes);
+app.use("https://connectus.onrender.com/api/user", userRoutes);
+app.use("https://connectus.onrender.com/api/chat", chatRoutes);
+app.use("https://connectus.onrender.com/api/message", messageRoutes);
 
 // --------------------------deployment------------------------------
 
