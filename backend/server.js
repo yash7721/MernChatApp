@@ -23,7 +23,7 @@ app.use("/api/message", messageRoutes);
 
 // --------------------------deployment------------------------------
 
-// const __dirname1 = path.resolve();
+const __dirname1 = path.resolve();
 
 if ("production" === "production") {
   app.use(express.static(path.join(__dirname1, "/frontend/build")));
